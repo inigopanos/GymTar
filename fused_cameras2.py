@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     body_tracking_parameters = sl.BodyTrackingParameters()
     body_tracking_parameters.detection_model = sl.BODY_TRACKING_MODEL.HUMAN_BODY_ACCURATE
-    body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_18
+    body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_34
     body_tracking_parameters.enable_body_fitting = False
     body_tracking_parameters.enable_tracking = False
 
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     bodies = sl.Bodies()
     single_bodies = [sl.Bodies]
 
-    while viewer.is_available():
+    while (viewer.is_available()):
         for serial in senders:
             zed = senders[serial]
             if zed.grab() == sl.ERROR_CODE.SUCCESS:

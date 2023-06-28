@@ -39,13 +39,21 @@ def serializeBodyData(body_data):
 
 def serializeBodies(bodies):
     """Serialize Bodies objects into a JSON like structure"""
+    "Esto escribe el json, lo otro no hace nada"
+
     out = {}
     out["is_new"] = bodies.is_new
     out["is_tracked"] = bodies.is_tracked
     out["timestamp"] = bodies.timestamp.data_ns
     out["body_list"] = []
+    out["prueba-json"] = []
     for sk in bodies.body_list:
+        prueba = serializeBodyData(sk)
         out["body_list"].append(serializeBodyData(sk))
+        # out["prueba-json"].append(prueba.local_position_per_joint)
+
+        print('Body data serializado: ', prueba)
+
     return out
 
 
@@ -58,14 +66,14 @@ class NumpyEncoder(json.JSONEncoder):
 
 def saveData(bodies):
     skeleton_file_data = {}
-    # while (viewer.is_available()):
-    #     if zed.grab() == sl.ERROR_CODE.SUCCESS:
-    #         zed.retrieve_bodies(bodies)
-
     skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
 
     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
     # Save data into JSON file:
     file_sk = open(ruta_json, 'w')
     file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
+    file_sk.write('\n')
+    file_sk.write(json.dumps(skeleton_file_data))
+    # print('Skeleton file data: ', skeleton_file_data)
+    file_sk.flush()
     file_sk.close()
