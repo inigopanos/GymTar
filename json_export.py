@@ -65,15 +65,15 @@ class NumpyEncoder(json.JSONEncoder):
 
 
 def saveData(bodies):
-    skeleton_file_data = {}
-    skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
+    skeleton_file_data = []
+    skeleton_file_data[int(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
 
     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
     # Save data into JSON file:
     file_sk = open(ruta_json, 'w')
     file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
     file_sk.write('\n')
-    file_sk.write(json.dumps(skeleton_file_data))
+    file_sk.write(json.dumps(skeleton_file_data.tolist()))
     # print('Skeleton file data: ', skeleton_file_data)
     file_sk.flush()
     file_sk.close()
