@@ -16,19 +16,23 @@ def receive_message():
         "ejercicios": [
             {
             "nombre": "Flexiones",
-            "series": 3
+            "series": 3,
+            "numero_ejercicios": 10
             },
             {
             "nombre": "Sentadillas",
-            "series": 4
+            "series": 4,
+            "numero_ejercicios": 12
             },
             {
             "nombre": "Abdominales",
-            "series": 3
+            "series": 3,
+            "numero_ejercicios": 15
             },
             {
             "nombre": "Burpees",
-            "series": 2
+            "series": 2,
+            "numero_ejercicios": 8
             }
         ]
     }
