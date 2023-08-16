@@ -149,7 +149,7 @@ if __name__ == "__main__":
             # for cam in camera_identifiers:
             #     fusion.retrieve_bodies(bodies, rt, cam)
 
-            json_export.saveData(bodies)
+            # json_export.saveData(bodies)
             viewer.update_bodies(bodies)
 
     for sender in senders:
