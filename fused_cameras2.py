@@ -1,14 +1,13 @@
 import cv2
 import sys
 import pyzed.sl as sl
-import time
 import ogl_viewer.viewer as gl
 import numpy as np
 import json_export as json_export
 
 if __name__ == "__main__":
 
-    ruta = 'D:\CosasInigo\ZedCalib\calibration.json'
+    ruta = 'D:\CosasInigo\ZedCalib\calibration3.json'
     filepath = ruta
     fusion_configurations = sl.read_fusion_configuration_file(filepath, sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP,
                                                               sl.UNIT.METER)
@@ -34,7 +33,7 @@ if __name__ == "__main__":
 
     body_tracking_parameters = sl.BodyTrackingParameters()
     body_tracking_parameters.detection_model = sl.BODY_TRACKING_MODEL.HUMAN_BODY_ACCURATE
-    body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_34
+    body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_38
     body_tracking_parameters.enable_body_fitting = False
     body_tracking_parameters.enable_tracking = False
 
@@ -145,11 +144,9 @@ if __name__ == "__main__":
         if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS:
             # Retrieve detected objects
             fusion.retrieve_bodies(bodies, rt)
-            # for debug, you can retrieve the data send by each camera, as well as communication and process stat just to make sure everything is okay
-            # for cam in camera_identifiers:
-            #     fusion.retrieve_bodies(bodies, rt, cam)
 
-            # json_export.saveData(bodies)
+            exec(open("json_export.py").read())
+
             viewer.update_bodies(bodies)
 
     for sender in senders:

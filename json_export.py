@@ -19,21 +19,12 @@ def serializeBodyData(body_data):
     out["tracking_state"] = str(body_data.tracking_state)
     out["action_state"] = str(body_data.action_state)
     addIntoOutput(out, "position", body_data.position)
-    addIntoOutput(out, "velocity", body_data.velocity)
-    addIntoOutput(out, "bounding_box_2d", body_data.bounding_box_2d)
     out["confidence"] = body_data.confidence
-    addIntoOutput(out, "bounding_box", body_data.bounding_box)
-    addIntoOutput(out, "dimensions", body_data.dimensions)
-    addIntoOutput(out, "keypoint_2d", body_data.keypoint_2d)
     addIntoOutput(out, "keypoint", body_data.keypoint)
-    addIntoOutput(out, "keypoint_cov", body_data.keypoints_covariance)
-    addIntoOutput(out, "head_bounding_box_2d", body_data.head_bounding_box_2d)
-    addIntoOutput(out, "head_bounding_box", body_data.head_bounding_box)
-    addIntoOutput(out, "head_position", body_data.head_position)
     addIntoOutput(out, "keypoint_confidence", body_data.keypoint_confidence)
     addIntoOutput(out, "local_position_per_joint", body_data.local_position_per_joint)
     addIntoOutput(out, "local_orientation_per_joint", body_data.local_orientation_per_joint)
-    addIntoOutput(out, "global_root_orientation", body_data.global_root_orientation)
+
     return out
 
 
@@ -44,13 +35,12 @@ def serializeBodies(bodies):
     out = {}
     out["is_new"] = bodies.is_new
     out["is_tracked"] = bodies.is_tracked
-    out["timestamp"] = bodies.timestamp.data_ns
+    out["timestamp"] = [bodies.timestamp.data_ns]
     out["body_list"] = []
-    out["prueba-json"] = []
+
     for sk in bodies.body_list:
         prueba = serializeBodyData(sk)
         out["body_list"].append(serializeBodyData(sk))
-        # out["prueba-json"].append(prueba.local_position_per_joint)
 
         print('Body data serializado: ', prueba)
 
@@ -64,16 +54,93 @@ class NumpyEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-def saveData(bodies):
-    skeleton_file_data = []
+# def saveData(bodies):
+#     skeleton_file_data = []
+#     # Save data into JSON file:
+#     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
+#     with open(ruta_json, 'w') as file_sk:
+#         skeleton_file_data[bodies.timestamp.get_milliseconds()] = serializeBodies(bodies)
+#         print('SkeletonFile: ', skeleton_file_data)
+#         file_sk = open(ruta_json, 'w')
+#         # file_sk.write(json.dump(skeleton_file_data, cls=NumpyEncoder, indent=4))
+#
+#         json.dump(skeleton_file_data, file_sk, indent=4)
+#
+#         file_sk.write('\n')
+#
+#         # file_sk.write(json.dumps(skeleton_file_data.tolist()))
+#         # file_sk.flush()
+#         file_sk.close()
+
+if __name__ == "__main__":
+
+    # common parameters
+    init_params = sl.InitParameters()
+    init_params.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP
+    init_params.coordinate_units = sl.UNIT.METER
+    init_params.depth_mode = sl.DEPTH_MODE.ULTRA
+    zed = sl.Camera()
+    error_code = zed.open(init_params)
+    if (error_code != sl.ERROR_CODE.SUCCESS):
+        print("Can't open camera: ", error_code)
+
+    positional_tracking_parameters = sl.PositionalTrackingParameters()
+    error_code = zed.enable_positional_tracking(positional_tracking_parameters)
+    if (error_code != sl.ERROR_CODE.SUCCESS):
+        print("Can't enable positionnal tracking: ", error_code)
+
+    body_tracking_parameters = sl.BodyTrackingParameters()
+    body_tracking_parameters.detection_model = sl.BODY_TRACKING_MODEL.HUMAN_BODY_ACCURATE
+    body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_18
+    body_tracking_parameters.enable_body_fitting = False
+    body_tracking_parameters.enable_tracking = True
+
+    error_code = zed.enable_body_tracking(body_tracking_parameters)
+    if (error_code != sl.ERROR_CODE.SUCCESS):
+        print("Can't enable positionnal tracking: ", error_code)
+
+    # Get ZED camera information
+    camera_info = zed.get_camera_information()
+    viewer = gl.GLViewer()
+    viewer.init()
+
+    # Create ZED objects filled in the main loop
+    bodies = sl.Bodies()
+    # single_bodies = [sl.Bodies]
+
+    skeleton_file_data = {}
+    while (viewer.is_available()):
+        if zed.grab() == sl.ERROR_CODE.SUCCESS:
+            zed.retrieve_bodies(bodies)
+            skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
+            viewer.update_bodies(bodies)
+
     # Save data into JSON file:
-    ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
-    with open(ruta_json, 'w') as file_sk:
-        skeleton_file_data[int(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
-        print('SkeletonFile: ', skeleton_file_data)
-        # file_sk = open(ruta_json, 'w')
-        file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
-        file_sk.write('\n')
-        file_sk.write(json.dumps(skeleton_file_data.tolist()))
-        file_sk.flush()
-        file_sk.close()
+    file_sk = open("bodies.json", 'w')
+    file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
+    file_sk.close()
+
+    viewer.exit()
+
+
+# def saveData(bodies):
+#     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
+#
+#     try:
+#         with open(ruta_json, 'r') as file_sk:
+#             skeleton_file_data = json.load(file_sk)
+#     except FileNotFoundError:
+#         skeleton_file_data = []
+#
+#     timestamp_ms = int(bodies.timestamp.get_milliseconds())
+#     serialized_data = serializeBodies(bodies)
+#
+#     # Agregar el nuevo dato a la lista usando append()
+#     skeleton_file_data.append({
+#         "timestamp": timestamp_ms,
+#         "data": serialized_data
+#     })
+#
+#     with open(ruta_json, 'w') as file_sk:
+#         json.dump(skeleton_file_data, file_sk, cls=NumpyEncoder, indent=4)
+

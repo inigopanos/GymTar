@@ -153,125 +153,6 @@ class NumpyEncoder(json.JSONEncoder):
 #######################################################################
 
 
-def create_visualization():
-    global heatmap_data
-
-    global fig
-
-    global heatmap_plot
-
-    '''# Initialiser la fenêtre OpenGL
-
-    viewer = gl.GLViewer()
-
-    viewer.init()'''
-
-    # Créer une figure pour la carte de chaleur
-
-    fig = plt.figure()
-
-    fig.suptitle("Room Visualization")
-
-    ax_heatmap = fig.add_subplot(121)
-
-    ax_heatmap.set_title("Heatmap")
-
-    heatmap_plot = ax_heatmap.imshow(heatmap_data, cmap='hot', origin='lower', extent=[0, ROOM_WIDTH, 0, ROOM_HEIGHT])
-
-    plt.colorbar(heatmap_plot)
-
-    # Créer une figure pour la carte 2D et la trajectoire
-
-    ax_map2d = fig.add_subplot(122)
-
-    ax_map2d.set_title("2D Map")
-
-    ax_map2d.set_xlabel("X")
-
-    ax_map2d.set_ylabel("Y")
-
-    ax_map2d.set_xlim([0, ROOM_WIDTH])
-
-    ax_map2d.set_ylim([0, ROOM_HEIGHT])
-
-    ax_map2d.grid(True)
-
-
-def update_visualization(positions):
-    global heatmap_data
-
-    global fig
-
-    global heatmap_plot
-
-    global previous_positions
-
-    # Mettre à jour la carte de chaleur
-
-    heatmap_data *= 0.95  # Diminuer progressivement les valeurs existantes pour l'effet de fondu
-
-    for x, y in positions:
-        heatmap_x = int(x / ROOM_WIDTH * HEATMAP_RESOLUTION)
-
-        heatmap_y = int(y / ROOM_HEIGHT * HEATMAP_RESOLUTION)
-
-        # heatmap_x = int(min(x / ROOM_WIDTH, 1) * HEATMAP_RESOLUTION)
-
-        # heatmap_y = int(min(y / ROOM_HEIGHT, 1) * HEATMAP_RESOLUTION)
-
-        heatmap_data[heatmap_y, heatmap_x] += 1
-
-    # Mettre à jour l'affichage de la carte de chaleur
-
-    heatmap_plot.set_data(heatmap_data)
-
-    plt.pause(0.001)
-
-    # Mettre à jour la carte 2D et la trajectoire
-
-    fig.clf()
-
-    ax_heatmap = fig.add_subplot(121)
-
-    ax_heatmap.set_title("Heatmap")
-
-    heatmap_plot = ax_heatmap.imshow(heatmap_data, cmap='hot', origin='lower', extent=[0, ROOM_WIDTH, 0, ROOM_HEIGHT])
-
-    plt.colorbar(heatmap_plot)
-
-    ax_map2d = fig.add_subplot(122)
-
-    ax_map2d.set_title("2D Map")
-
-    ax_map2d.set_xlabel("X")
-
-    ax_map2d.set_ylabel("Y")
-
-    ax_map2d.set_xlim([0, ROOM_WIDTH])
-
-    ax_map2d.set_ylim([0, ROOM_HEIGHT])
-
-    ax_map2d.grid(True)
-
-    # Trajectoire
-
-    if len(previous_positions) > 0:
-        x_coords, y_coords = zip(*previous_positions)
-
-        ax_map2d.plot(x_coords, y_coords, 'b-', label='Trajectory')
-
-    # Position actuelle
-
-    if len(positions) > 0:
-        x, y = positions[-1]
-
-        ax_map2d.plot(x, y, 'ro', label='Current Position')
-
-    ax_map2d.legend()
-
-    plt.pause(0.001)
-
-
 #######################################################################
 
 #
@@ -531,31 +412,33 @@ if __name__ == "__main__":
 
             while (viewer.is_available()):
 
-                if zed.grab() == sl.ERROR_CODE.SUCCESS and contador <= 50:
+                if zed.grab() == sl.ERROR_CODE.SUCCESS:
 
                     contador += 1
 
                     zed.retrieve_bodies(bodies)
 
-                    # enregistrement des données du squelette en fichier json
+                    # skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)  # DICT
 
-                    skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
+                    # Convertir los ndarrays en listas dentro del diccionario
+                    # for key, value in skeleton_file_data.items():
+                    #     if isinstance(value, np.ndarray):
+                    #         skeleton_file_data[key] = value.tolist()
 
-                    print('Skeleton file data: ', skeleton_file_data)
+                    # Convertir el diccionario en una cade JSON
+                    # json_data = json.dumps(skeleton_file_data, sort_keys=True, indent=4)  # ERROR DE NP ARRAY
 
-                    if contador == 50:
-
-                        file_sk = open("bodies.json", 'w')
-
-                        json.dump(skeleton_file_data, sort_keys=True, indent=4)
-
-                        file_sk.close()
-
-                    # permet de voir le squelette dans le viewer
+                    # with open(file_sk, 'w'):
+                    #
+                    #     print('Skeleton file data: ', skeleton_file_data)
+                    #
+                    #     file_sk.write(json_data)
+                    #
+                    # if contador == 50:
+                    #
+                    #     file_sk.close()
 
                     viewer.update_bodies(bodies)
-
-                    # Récupération des données de positions pour la map2D et la HeatMap
 
                     positions = []
 
