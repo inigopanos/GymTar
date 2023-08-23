@@ -54,8 +54,10 @@ class NumpyEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
+skeleton_file_data = {}
+
+
 def saveData(bodies):
-    skeleton_file_data = {}
     # Save data into JSON file:
     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
     with open(ruta_json, 'w') as file_sk:

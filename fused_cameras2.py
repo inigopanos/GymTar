@@ -152,7 +152,7 @@ if __name__ == "__main__":
             # Retrieve detected objects
             fusion.retrieve_bodies(bodies, rt)
 
-            json_export.saveData(bodies)
+            json_export.saveData(bodies)  # saveData() convierte skeleton_file_data en {}
 
             viewer.update_bodies(bodies)
 
