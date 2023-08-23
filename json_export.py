@@ -54,73 +54,26 @@ class NumpyEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-# def saveData(bodies):
-#     skeleton_file_data = []
-#     # Save data into JSON file:
-#     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
-#     with open(ruta_json, 'w') as file_sk:
-#         skeleton_file_data[bodies.timestamp.get_milliseconds()] = serializeBodies(bodies)
-#         print('SkeletonFile: ', skeleton_file_data)
-#         file_sk = open(ruta_json, 'w')
-#         # file_sk.write(json.dump(skeleton_file_data, cls=NumpyEncoder, indent=4))
-#
-#         json.dump(skeleton_file_data, file_sk, indent=4)
-#
-#         file_sk.write('\n')
-#
-#         # file_sk.write(json.dumps(skeleton_file_data.tolist()))
-#         # file_sk.flush()
-#         file_sk.close()
-
-if __name__ == "__main__":
-
-    # common parameters
-    init_params = sl.InitParameters()
-    init_params.coordinate_system = sl.COORDINATE_SYSTEM.RIGHT_HANDED_Y_UP
-    init_params.coordinate_units = sl.UNIT.METER
-    init_params.depth_mode = sl.DEPTH_MODE.ULTRA
-    zed = sl.Camera()
-    error_code = zed.open(init_params)
-    if (error_code != sl.ERROR_CODE.SUCCESS):
-        print("Can't open camera: ", error_code)
-
-    positional_tracking_parameters = sl.PositionalTrackingParameters()
-    error_code = zed.enable_positional_tracking(positional_tracking_parameters)
-    if (error_code != sl.ERROR_CODE.SUCCESS):
-        print("Can't enable positionnal tracking: ", error_code)
-
-    body_tracking_parameters = sl.BodyTrackingParameters()
-    body_tracking_parameters.detection_model = sl.BODY_TRACKING_MODEL.HUMAN_BODY_ACCURATE
-    body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_18
-    body_tracking_parameters.enable_body_fitting = False
-    body_tracking_parameters.enable_tracking = True
-
-    error_code = zed.enable_body_tracking(body_tracking_parameters)
-    if (error_code != sl.ERROR_CODE.SUCCESS):
-        print("Can't enable positionnal tracking: ", error_code)
-
-    # Get ZED camera information
-    camera_info = zed.get_camera_information()
-    viewer = gl.GLViewer()
-    viewer.init()
-
-    # Create ZED objects filled in the main loop
-    bodies = sl.Bodies()
-    # single_bodies = [sl.Bodies]
-
+def saveData(bodies):
     skeleton_file_data = {}
-    while (viewer.is_available()):
-        if zed.grab() == sl.ERROR_CODE.SUCCESS:
-            zed.retrieve_bodies(bodies)
-            skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
-            viewer.update_bodies(bodies)
-
     # Save data into JSON file:
-    file_sk = open("bodies.json", 'w')
-    file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
-    file_sk.close()
+    ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
+    with open(ruta_json, 'w') as file_sk:
+        skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
+        print('SkeletonFile: ', skeleton_file_data)
 
-    viewer.exit()
+        file_sk = open(ruta_json, 'w')
+
+        file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
+
+        # json.dump(skeleton_file_data, file_sk, indent=4)
+
+        # file_sk.write('\n')
+
+        # file_sk.write(json.dumps(skeleton_file_data.tolist()))
+        # file_sk.flush()
+        file_sk.close()
+
 
 
 # def saveData(bodies):

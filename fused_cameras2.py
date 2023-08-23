@@ -3,6 +3,7 @@ import sys
 import pyzed.sl as sl
 import ogl_viewer.viewer as gl
 import numpy as np
+import json
 import json_export as json_export
 
 if __name__ == "__main__":
@@ -135,19 +136,28 @@ if __name__ == "__main__":
     bodies = sl.Bodies()
     single_bodies = [sl.Bodies]
 
+    # Contador para pruebas
+    contador = 0
+
     while (viewer.is_available()):
+
+        contador += 1
+
         for serial in senders:
             zed = senders[serial]
             if zed.grab() == sl.ERROR_CODE.SUCCESS:
                 zed.retrieve_bodies(bodies)
 
-        if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS:
+        if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and contador <= 50:
             # Retrieve detected objects
             fusion.retrieve_bodies(bodies, rt)
 
-            exec(open("json_export.py").read())
+            json_export.saveData(bodies)
 
             viewer.update_bodies(bodies)
+
+        if contador > 50:
+            viewer.exit()
 
     for sender in senders:
         senders[sender].close()
