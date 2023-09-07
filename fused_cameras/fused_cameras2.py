@@ -28,19 +28,12 @@ if __name__ == "__main__":
     positional_tracking_parameters = sl.PositionalTrackingParameters()
     positional_tracking_parameters.set_as_static = True
 
-    # body_tracking_parameters = sl.BodyTrackingParameters()
-    # body_tracking_parameters.detection_model = sl.BODY_TRACKING_MODEL.HUMAN_BODY_ACCURATE
-    # # En 34 hay local_position y local_orientation, en 38 no, PERO en 34 falla la postura de los pies.
-    # body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_34
-    # body_tracking_parameters.enable_body_fitting = False
-    # body_tracking_parameters.enable_tracking = False
-
-    body_tracking_fusion_parameters = sl.BodyTrackingFusionParameters()
-    body_tracking_fusion_parameters.detection_model = sl.BODY_TRACKING_MODEL.HUMAN_BODY_ACCURATE
+    body_tracking_parameters = sl.BodyTrackingParameters()
+    body_tracking_parameters.detection_model = sl.BODY_TRACKING_MODEL.HUMAN_BODY_ACCURATE
     # En 34 hay local_position y local_orientation, en 38 no, PERO en 34 falla la postura de los pies.
-    body_tracking_fusion_parameters.body_format = sl.BODY_FORMAT.BODY_34
-    body_tracking_fusion_parameters.enable_body_fitting = False
-    body_tracking_fusion_parameters.enable_tracking = False
+    body_tracking_parameters.body_format = sl.BODY_FORMAT.BODY_34
+    body_tracking_parameters.enable_body_fitting = False
+    body_tracking_parameters.enable_tracking = False
 
     for conf in fusion_configurations:
         print("Try to open ZED", conf.serial_number)
