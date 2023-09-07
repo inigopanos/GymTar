@@ -22,8 +22,11 @@ def serializeBodyData(body_data):
     out["confidence"] = body_data.confidence
     addIntoOutput(out, "keypoint", body_data.keypoint)
     addIntoOutput(out, "keypoint_confidence", body_data.keypoint_confidence)
-    addIntoOutput(out, "local_position_per_joint", body_data.local_position_per_joint)
-    addIntoOutput(out, "local_orientation_per_joint", body_data.local_orientation_per_joint)
+    # addIntoOutput(out, "local_position_per_joint", body_data.local_position_per_joint)
+    # addIntoOutput(out, "local_orientation_per_joint", body_data.local_orientation_per_joint)
+    out["local_position_per_joint"] = body_data.local_position_per_joint
+    out["local_orientation_per_joint"] = body_data.local_orientation_per_joint
+
 
     return out
 
@@ -59,6 +62,7 @@ skeleton_file_data = {}
 
 def saveData(bodies):
     # Save data into JSON file:
+
     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
     with open(ruta_json, 'w') as file_sk:
         skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
@@ -68,34 +72,8 @@ def saveData(bodies):
 
         file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
 
-        # json.dump(skeleton_file_data, file_sk, indent=4)
-
-        # file_sk.write('\n')
-
-        # file_sk.write(json.dumps(skeleton_file_data.tolist()))
-        # file_sk.flush()
         file_sk.close()
 
 
 
-# def saveData(bodies):
-#     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
-#
-#     try:
-#         with open(ruta_json, 'r') as file_sk:
-#             skeleton_file_data = json.load(file_sk)
-#     except FileNotFoundError:
-#         skeleton_file_data = []
-#
-#     timestamp_ms = int(bodies.timestamp.get_milliseconds())
-#     serialized_data = serializeBodies(bodies)
-#
-#     # Agregar el nuevo dato a la lista usando append()
-#     skeleton_file_data.append({
-#         "timestamp": timestamp_ms,
-#         "data": serialized_data
-#     })
-#
-#     with open(ruta_json, 'w') as file_sk:
-#         json.dump(skeleton_file_data, file_sk, cls=NumpyEncoder, indent=4)
 

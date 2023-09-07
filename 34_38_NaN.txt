@@ -1,0 +1,15 @@
+- Recalibrar cámaras
+- Hacer con 34 para eliminar NaN
+
+En 34 no hay buen tracking de pies, hay local_position_per_joint y _local_orientation_per_joint, puede que no haya NaN
+En 38 hay buena tracking de pies, no hay local_position_per_joint ni local_orientation_per_joint, hay NaN.
+
+Modo 		34   38
+
+Tracking pies - No - Sí
+local_data    - Sí - No
+NaN  	      - Sí - Mo
+
+No hay NaN pero los sustituye por [0.0, 0.0, 0.0, 1.0]
+
+NOT ALL KEYPOINTS HAVE ORIENTATION DATA AVAILABLE!! (https://community.stereolabs.com/t/local-orientation-per-joint-local-position-per-joint/1805)
