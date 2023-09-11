@@ -38,7 +38,7 @@ def serializeBodies(bodies):
     out = {}
     out["is_new"] = bodies.is_new
     out["is_tracked"] = bodies.is_tracked
-    out["timestamp"] = [bodies.timestamp.data_ns]
+    out["timestamp"] = [bodies.timestamp.get_milliseconds]
     out["body_list"] = []
 
     for sk in bodies.body_list:
