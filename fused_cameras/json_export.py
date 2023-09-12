@@ -1,8 +1,9 @@
-
-import pyzed.sl as sl
-import ogl_viewer.viewer as gl
 import numpy as np
 import json
+import time
+
+tiempo_inicial = time.time()
+print('Tiempo inicial: ', tiempo_inicial)
 
 def addIntoOutput(out, identifier, tab):
     out[identifier] = []
@@ -38,14 +39,14 @@ def serializeBodies(bodies):
     out = {}
     out["is_new"] = bodies.is_new
     out["is_tracked"] = bodies.is_tracked
-    out["timestamp"] = [bodies.timestamp.get_milliseconds]
+    out["timestamp"] = [bodies.timestamp.get_seconds()]
     out["body_list"] = []
 
     for sk in bodies.body_list:
         prueba = serializeBodyData(sk)
         out["body_list"].append(serializeBodyData(sk))
 
-        print('Body data serializado: ', prueba)
+        # print('Body data serializado: ', prueba)
 
     return out
 
@@ -65,8 +66,8 @@ def saveData(bodies):
 
     ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
     with open(ruta_json, 'w') as file_sk:
-        skeleton_file_data[str(bodies.timestamp.get_milliseconds())] = serializeBodies(bodies)
-        print('SkeletonFile: ', skeleton_file_data)
+        skeleton_file_data[str(bodies.timestamp.get_seconds())] = serializeBodies(bodies)
+        # print('SkeletonFile: ', skeleton_file_data)
 
         file_sk = open(ruta_json, 'w')
 

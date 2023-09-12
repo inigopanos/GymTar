@@ -1,0 +1,28 @@
+[
+ {
+    "Oso": {
+        "duracion": 2538,
+        "series": 5
+    },
+    "Lobo": {
+        "duracion": 2511,
+        "series": {
+            "balanceo_con_goma": {
+                "comienzo_segundos": 120,
+                "duracion_repeticion": 30,
+                "duracion_descanso": 15,
+                "fin_segundos": 149
+            },
+            "balanceo_con_mancuerna": {
+                "comienzo_segundos": 164,
+                "duracion_repeticion": 30,
+                "duracion_descanso": 15,
+                "fin_segundos": 194
+            },
+            {
+
+            }
+
+        }
+    }
+}]

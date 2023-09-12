@@ -17,35 +17,31 @@ indices_deseados = [1, 3, 5, 6, 12, 13, 18, 19, 22, 23]
 # Cargar el archivo JSON original
 with open(ruta_json, "r") as archivo:
     datos_originales = json.load(archivo)
-    print('Datos originales:', datos_originales)
 
 # Recorrer los objetos en el archivo original
 for orientation_data, value in datos_originales.items():
 
-    print('Orientation_data: ', value)
     body_list = value.get("body_list", [])
-
-    print('Body_list: ', type(body_list))
 
     timestamp_original = 0
     local_orientation_per_joint_original = []
     body_list_original = []
+    nombre_ejercicio = ''
 
     if body_list:
         body_list_original = body_list.copy()
         timestamp_original = value.get("timestamp", 0)
         print('Body local: ', body_list_original, type(body_list_original))
 
-    print('Longitud de dict: ', len(body_list_original))
-
     if body_list_original:
         primer_elemento = body_list_original[0]
         local_orientation_per_joint_original = primer_elemento["local_orientation_per_joint"]
-        print('Local_Orientation_Original: ', local_orientation_per_joint_original)
     else:
         print('La lista body_list_original está vacía')
 
     if len(local_orientation_per_joint_original) >= max(indices_deseados) + 1:
+        # Añadir etiqueta de nombre de ejercicio
+
         # Seleccionar solo los elementos deseados según los índices
         local_orientation_per_joint_limpio = [local_orientation_per_joint_original[i] for i in indices_deseados]
     else:
@@ -58,7 +54,6 @@ for orientation_data, value in datos_originales.items():
         "timestamp": timestamp_original,
         "local_orientation_per_joint": local_orientation_per_joint_limpio
     }
-    print('Objeto limpio: ', objeto_limpio)
     # Agregar el nuevo objeto a la lista de objetos limpios
     objetos_limpios.append(objeto_limpio)
 
