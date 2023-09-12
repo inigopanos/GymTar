@@ -1,6 +1,7 @@
 import pyzed.sl as sl
 import ogl_viewer.viewer as gl
 import json_export as json_export
+import time
 
 if __name__ == "__main__":
 
@@ -136,16 +137,21 @@ if __name__ == "__main__":
     # Contador para pruebas
     contador = 0
 
+    tiempo_anterior = time.time()
+
     while (viewer.is_available()):
+        tiempo_actual = time.time()
+        tiempo_transcurrido = tiempo_actual - tiempo_anterior
 
         contador += 1
+        print('Contador: ', contador, ' + tiempo transcurrido: ', tiempo_transcurrido)
 
         for serial in senders:
             zed = senders[serial]
             if zed.grab() == sl.ERROR_CODE.SUCCESS:
                 zed.retrieve_bodies(bodies)
 
-        if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and contador <= 50:
+        if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 0.5:
             # Retrieve detected objects
             fusion.retrieve_bodies(bodies, rt)
 
@@ -153,7 +159,7 @@ if __name__ == "__main__":
 
             viewer.update_bodies(bodies)
 
-        if contador > 50:
+        if tiempo_transcurrido >= 15:
             viewer.exit()
 
     for sender in senders:
