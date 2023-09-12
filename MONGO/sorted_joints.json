@@ -1,11 +1,16 @@
 [
     {
+        "timestamp": 0,
         "local_orientation_per_joint": []
     },
     {
+        "timestamp": 0,
         "local_orientation_per_joint": []
     },
     {
+        "timestamp": [
+            1694079900204758200
+        ],
         "local_orientation_per_joint": [
             [
                 -5.3394185670185834e-05,
@@ -70,6 +75,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079900304870200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00014691424439661205,
@@ -134,6 +142,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079900421494200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00011889306915691122,
@@ -198,6 +209,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079900538118200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0003734658530447632,
@@ -262,6 +276,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079900854872200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0006196718313731253,
@@ -326,6 +343,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079900988244200
+        ],
         "local_orientation_per_joint": [
             [
                 0.000825007795356214,
@@ -390,6 +410,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079901121621200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0007153498008847237,
@@ -454,6 +477,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079901254873200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0004995779599994421,
@@ -518,6 +544,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079901421620200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00014750062837265432,
@@ -582,6 +611,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079901571618200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00011771132267313078,
@@ -646,6 +678,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079901738247200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0001834135182434693,
@@ -710,6 +745,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079901904999200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0010819027666002512,
@@ -774,6 +812,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079902071622200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0004954423638992012,
@@ -838,6 +879,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079902254992200
+        ],
         "local_orientation_per_joint": [
             [
                 1.108826654672157e-05,
@@ -902,6 +946,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079902438368200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.00047974070184864104,
@@ -966,6 +1013,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079902638366200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.0006532545085065067,
@@ -1030,6 +1080,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079902821744200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.0008521910640411079,
@@ -1094,6 +1147,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079903021745200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.0009211931028403342,
@@ -1158,6 +1214,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079903221739200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.00044192251516506076,
@@ -1222,6 +1281,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079903421865200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.0003373123181518167,
@@ -1286,6 +1348,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079903638492200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.0003635763132479042,
@@ -1350,6 +1415,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079903871864200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.00028648466104641557,
@@ -1414,6 +1482,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079904138489200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00047538604121655226,
@@ -1478,6 +1549,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079904388620200
+        ],
         "local_orientation_per_joint": [
             [
                 0.000460805807961151,
@@ -1542,6 +1616,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079904655239200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0002886637521442026,
@@ -1606,6 +1683,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079904921991200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0004971775924786925,
@@ -1670,6 +1750,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079905205365200
+        ],
         "local_orientation_per_joint": [
             [
                 4.475004243431613e-05,
@@ -1734,6 +1817,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079905488737200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.00027931557269766927,
@@ -1798,6 +1884,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079905788740200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.0007107200217433274,
@@ -1862,6 +1951,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079906088739200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0005320894997566938,
@@ -1926,6 +2018,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079906405493200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0007632044143974781,
@@ -1990,6 +2085,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079906722114200
+        ],
         "local_orientation_per_joint": [
             [
                 -9.732067155709956e-06,
@@ -2054,6 +2152,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079907038863200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.00042569602373987436,
@@ -2118,6 +2219,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079907388866200
+        ],
         "local_orientation_per_joint": [
             [
                 7.292278314707801e-05,
@@ -2182,6 +2286,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079907705614200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00035638577537611127,
@@ -2246,6 +2353,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079908038988200
+        ],
         "local_orientation_per_joint": [
             [
                 -6.134826980996877e-05,
@@ -2310,6 +2420,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079908388990200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.00027218786999583244,
@@ -2374,6 +2487,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079908805756200
+        ],
         "local_orientation_per_joint": [
             [
                 -9.770916949491948e-05,
@@ -2438,6 +2554,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079909139112200
+        ],
         "local_orientation_per_joint": [
             [
                 -8.813179010758176e-05,
@@ -2502,6 +2621,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079909505735200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.00020254222908988595,
@@ -2566,6 +2688,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079909889113200
+        ],
         "local_orientation_per_joint": [
             [
                 0.0002193542750319466,
@@ -2630,6 +2755,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079910272486200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00019435961439739913,
@@ -2694,6 +2822,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079910672610200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00013292925723362714,
@@ -2758,6 +2889,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079911055984200
+        ],
         "local_orientation_per_joint": [
             [
                 -9.878129640128464e-05,
@@ -2822,6 +2956,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079911456010200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.000440626812633127,
@@ -2886,6 +3023,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079911855985200
+        ],
         "local_orientation_per_joint": [
             [
                 -0.0005434414488263428,
@@ -2950,6 +3090,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079912306162200
+        ],
         "local_orientation_per_joint": [
             [
                 -2.575611688371282e-05,
@@ -3014,6 +3157,9 @@
         ]
     },
     {
+        "timestamp": [
+            1694079912822879200
+        ],
         "local_orientation_per_joint": [
             [
                 0.00045476455125026405,

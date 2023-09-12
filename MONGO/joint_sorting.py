@@ -1,11 +1,12 @@
 import json
 
 # Ruta del archivo JSON original
-# ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json' # UNI
-ruta_json = 'D:\\GymTar\\GymTar\\bodies.json'
+ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json' # UNI
+# ruta_json = 'D:\\GymTar\\GymTar\\bodies.json' # CASA
 
 # Ruta del nuevo archivo JSON donde se guardarán los datos limpios
-ruta_archivo_limpio = "D:\\GymTar\\GymTar\\MONGO\\sorted_joints.json"
+# ruta_archivo_limpio = "D:\\GymTar\\GymTar\\MONGO\\sorted_joints.json" # CASA
+ruta_archivo_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\sorted_joints.json" # UNI
 
 # Lista para almacenar los objetos limpios
 objetos_limpios = []
@@ -26,12 +27,14 @@ for orientation_data, value in datos_originales.items():
 
     print('Body_list: ', type(body_list))
 
+    timestamp_original = 0
     local_orientation_per_joint_original = []
     body_list_original = []
 
     if body_list:
         body_list_original = body_list.copy()
-        print('Orientación local: ', body_list_original, type(body_list_original))
+        timestamp_original = value.get("timestamp", 0)
+        print('Body local: ', body_list_original, type(body_list_original))
 
     print('Longitud de dict: ', len(body_list_original))
 
@@ -50,8 +53,9 @@ for orientation_data, value in datos_originales.items():
         local_orientation_per_joint_limpio = []
     # Seleccionar solo los elementos deseados según los índices
 
-    # Crear un nuevo objeto con los elementos limpios
+    # Crear un nuevo objeto con los elementos limpios, timestamp y orientación local
     objeto_limpio = {
+        "timestamp": timestamp_original,
         "local_orientation_per_joint": local_orientation_per_joint_limpio
     }
     print('Objeto limpio: ', objeto_limpio)
