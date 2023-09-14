@@ -142,38 +142,37 @@ if __name__ == "__main__":
     tiempo_pausa = 15
 
     while contador < tiempo_total:
-        contador += 1
-        time.sleep(1)
-
-        # Ejecutar código durante los 30 segundos del ejercicio
-        if contador <= tiempo_ejecucion_ejercicio:
-
-            tiempo_anterior = time.time()
-            tiempo_actual = time.time()
-            tiempo_transcurrido = tiempo_actual - tiempo_anterior
-            contador = tiempo_transcurrido
-            # print('Tiempo transcurrido: ', tiempo_transcurrido, 'y contador:', contador)
-
+        tiempo_actual = time.time()
+        tiempo_transcurrido = tiempo_actual - tiempo_inicial
+        print('Tiempo transcurrido:', tiempo_transcurrido)
+        # Verifica si es tiempo de ejecución
+        if tiempo_transcurrido <= tiempo_ejecucion_ejercicio:
+            # Tu código de ejecución durante los 30 segundos
             for serial in senders:
                 zed = senders[serial]
                 if zed.grab() == sl.ERROR_CODE.SUCCESS:
                     zed.retrieve_bodies(bodies)
 
             if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 1:
-                # Con 0.5 segundos es igual da 15 datos en vez de 30.
-                # Retrieve detected objects
                 fusion.retrieve_bodies(bodies, rt)
-
-                json_export.saveData(bodies)  # saveData() convierte skeleton_file_data en {}
-
+                json_export.saveData(bodies)
                 viewer.update_bodies(bodies)
 
-        # Pausa al acabar, en principio 15 segundos
-        else:
+        # Verifica si es tiempo de pausa
+        elif tiempo_transcurrido <= tiempo_ejecucion_ejercicio + tiempo_pausa:
             print('Pausa...', contador)
-            # Una vez llegado al
-            if contador >= 45:
-                contador = 0
+
+        # Reinicia el contador después de 45 segundos (30s de ejecución + 15s de pausa)
+        if tiempo_transcurrido >= tiempo_ejecucion_ejercicio + tiempo_pausa:
+            tiempo_inicial = time.time()
+            contador = 0
+
+        contador += 1
+        time.sleep(1)
+
+        # Sale del bucle si han pasado 15 segundos
+        if tiempo_transcurrido >= 15:
+            viewer.exit()
 
     for sender in senders:
         senders[sender].close()
