@@ -138,33 +138,32 @@ if __name__ == "__main__":
     contador = 0
     tiempo_total = 100
     tiempo_inicial = time.time()
-    tiempo_ejecucion = 30
+    tiempo_ejecucion_ejercicio = 30
     tiempo_pausa = 15
 
     while contador < tiempo_total:
         # Ejecutar código durante los 30 segundos del ejercicio
-        if contador <= tiempo_ejecucion:
+        if contador <= tiempo_ejecucion_ejercicio:
 
             tiempo_anterior = time.time()
-            while (contador <= tiempo_ejecucion):
-                tiempo_actual = time.time()
-                tiempo_transcurrido = tiempo_actual - tiempo_anterior
-                contador = tiempo_transcurrido
-                # print('Tiempo transcurrido: ', tiempo_transcurrido, 'y contador:', contador)
+            tiempo_actual = time.time()
+            tiempo_transcurrido = tiempo_actual - tiempo_anterior
+            contador = tiempo_transcurrido
+            # print('Tiempo transcurrido: ', tiempo_transcurrido, 'y contador:', contador)
 
-                for serial in senders:
-                    zed = senders[serial]
-                    if zed.grab() == sl.ERROR_CODE.SUCCESS:
-                        zed.retrieve_bodies(bodies)
+            for serial in senders:
+                zed = senders[serial]
+                if zed.grab() == sl.ERROR_CODE.SUCCESS:
+                    zed.retrieve_bodies(bodies)
 
-                if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 1:
-                    # Con 0.5 segundos es igual da 15 datos en vez de 30.
-                    # Retrieve detected objects
-                    fusion.retrieve_bodies(bodies, rt)
+            if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 1:
+                # Con 0.5 segundos es igual da 15 datos en vez de 30.
+                # Retrieve detected objects
+                fusion.retrieve_bodies(bodies, rt)
 
-                    json_export.saveData(bodies)  # saveData() convierte skeleton_file_data en {}
+                json_export.saveData(bodies)  # saveData() convierte skeleton_file_data en {}
 
-                    viewer.update_bodies(bodies)
+                viewer.update_bodies(bodies)
 
 
 
