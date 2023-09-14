@@ -134,30 +134,49 @@ if __name__ == "__main__":
     bodies = sl.Bodies()
     single_bodies = [sl.Bodies]
 
-    # Contador para pruebas
+    # Contador para tiempo
     contador = 0
+    tiempo_total = 100
+    tiempo_inicial = time.time()
+    tiempo_ejecucion = 30
+    tiempo_pausa = 15
 
-    tiempo_anterior = time.time()
+    while contador < tiempo_total:
+        # Ejecutar código durante los 30 segundos del ejercicio
+        if contador <= tiempo_ejecucion:
 
-    while (viewer.is_available()):
-        tiempo_actual = time.time()
-        tiempo_transcurrido = tiempo_actual - tiempo_anterior
+            tiempo_anterior = time.time()
+            while (contador <= tiempo_ejecucion):
+                tiempo_actual = time.time()
+                tiempo_transcurrido = tiempo_actual - tiempo_anterior
+                contador = tiempo_transcurrido
+                # print('Tiempo transcurrido: ', tiempo_transcurrido, 'y contador:', contador)
+
+                for serial in senders:
+                    zed = senders[serial]
+                    if zed.grab() == sl.ERROR_CODE.SUCCESS:
+                        zed.retrieve_bodies(bodies)
+
+                if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 1:
+                    # Con 0.5 segundos es igual da 15 datos en vez de 30.
+                    # Retrieve detected objects
+                    fusion.retrieve_bodies(bodies, rt)
+
+                    json_export.saveData(bodies)  # saveData() convierte skeleton_file_data en {}
+
+                    viewer.update_bodies(bodies)
+
+
+
+        # Pausa al acabar, en principio 15 segundos
+        else:
+            print('Pausa...', contador)
+            # Una vez llegado al
+            if contador >= 45:
+                contador = 0
 
         contador += 1
-        print('Contador: ', contador, ' + tiempo transcurrido: ', tiempo_transcurrido)
-
-        for serial in senders:
-            zed = senders[serial]
-            if zed.grab() == sl.ERROR_CODE.SUCCESS:
-                zed.retrieve_bodies(bodies)
-
-        if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 0.5:
-            # Retrieve detected objects
-            fusion.retrieve_bodies(bodies, rt)
-
-            json_export.saveData(bodies)  # saveData() convierte skeleton_file_data en {}
-
-            viewer.update_bodies(bodies)
+        time.sleep(1)
 
         if tiempo_transcurrido >= 15:
             viewer.exit()

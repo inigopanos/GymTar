@@ -19,6 +19,12 @@
                 "duracion_descanso": 15,
                 "fin_segundos": 194
             },
+            "squat_jump": {
+              "comienzo_segundos": 164,
+              "duracion_repeticion": 30,
+              "duracion_descanso": 15,
+              "fin_segundos": 194
+            },
             {
 
             }
