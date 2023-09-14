@@ -142,6 +142,9 @@ if __name__ == "__main__":
     tiempo_pausa = 15
 
     while contador < tiempo_total:
+        contador += 1
+        time.sleep(1)
+
         # Ejecutar código durante los 30 segundos del ejercicio
         if contador <= tiempo_ejecucion_ejercicio:
 
@@ -165,20 +168,12 @@ if __name__ == "__main__":
 
                 viewer.update_bodies(bodies)
 
-
-
         # Pausa al acabar, en principio 15 segundos
         else:
             print('Pausa...', contador)
             # Una vez llegado al
             if contador >= 45:
                 contador = 0
-
-        contador += 1
-        time.sleep(1)
-
-        if tiempo_transcurrido >= 15:
-            viewer.exit()
 
     for sender in senders:
         senders[sender].close()
