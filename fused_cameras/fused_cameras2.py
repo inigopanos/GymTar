@@ -127,7 +127,7 @@ if __name__ == "__main__":
     rt.skeleton_minimum_allowed_keypoints = 7
 
     viewer = gl.GLViewer()
-    viewer.init()
+    # viewer.init()
 
     # Create ZED objects filled in the main loopnntie
     bodies = sl.Bodies()
@@ -155,7 +155,7 @@ if __name__ == "__main__":
             if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 1:
                 fusion.retrieve_bodies(bodies, rt)
                 json_export.saveData(bodies)
-                viewer.update_bodies(bodies)
+                # viewer.update_bodies(bodies)
 
         # Verifica si es tiempo de pausa
         elif tiempo_transcurrido <= tiempo_ejecucion_ejercicio + tiempo_pausa:

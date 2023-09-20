@@ -1,10 +1,11 @@
+import numpy as np
 import json
 import pandas as pd
 from fused_cameras import json_export
 from scipy.spatial.transform import Rotation
 
 # Ruta del archivo JSON original
-ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json' # UNI
+# ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json' # UNI
 # ruta_json = 'D:\\GymTar\\GymTar\\bodies.json' # CASA
 
 # Ruta del nuevo archivo JSON donde se guardarán los datos limpios
@@ -18,6 +19,16 @@ objetos_limpios = []
 
 # Índices de los elementos que deseas conservar en local_orientation_per_joint
 indices_deseados = [1, 3, 5, 6, 12, 13, 18, 19, 22, 23]
+
+
+# Crear un objeto JSONEncoder personalizado
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return json.JSONEncoder.default(self, obj)
+
 
 # Cargar el archivo JSON original
 with open(ruta_json_original, "r") as archivo:
@@ -33,10 +44,11 @@ for orientation_data, value in datos_originales.items():
     body_list_original = []
     nombre_ejercicio = ''
 
+
     if body_list:
         body_list_original = body_list.copy()
         timestamp_original = value.get("timestamp", 0)
-        print('Body local: ', body_list_original, type(body_list_original))
+        # print('Body local: ', body_list_original, type(body_list_original))
 
     if body_list_original:
         primer_elemento = body_list_original[0]
@@ -58,18 +70,28 @@ for orientation_data, value in datos_originales.items():
         # Cambiar los objetos de quaterniones a Euler
         rot = Rotation.from_quat(joint)
         rot_euler = rot.as_euler('xyz', degrees=True)
-        euler_df = pd.DataFrame(data=rot_euler, columns=['x', 'y', 'z'])
+        print('Rotación Euler:', rot_euler)
 
-    # Crear un nuevo objeto con los elementos limpios, timestamp y orientación local
-    objeto_limpio = {
-        "timestamp": timestamp_original,
-        "local_orientation_per_joint": local_orientation_per_joint_limpio
-    }
+        # Convertir el objeto NumPy a una cadena JSON
+        json_string = json.dumps(rot_euler, default=np.asarray)
+
+        local_orientation_per_joint_limpio = rot_euler.tolist()
+
+        # Crear un nuevo objeto con los elementos limpios, timestamp y orientación local
+        objeto_limpio = {
+            "timestamp": timestamp_original,
+            "local_orientation_per_joint": local_orientation_per_joint_limpio
+        }
+
+        objetos_limpios.append(objeto_limpio)
+
+    # # Crear un nuevo objeto con los elementos limpios, timestamp y orientación local
+    # objeto_limpio = {
+    #     "timestamp": timestamp_original,
+    #     "local_orientation_per_joint": local_orientation_per_joint_limpio
+    # }
     # Agregar el nuevo objeto a la lista de objetos limpios
-    objetos_limpios.append(objeto_limpio)
-
-
 
 # Guardar la lista de objetos limpios en un nuevo archivo JSON
 with open(ruta_archivo_limpio, "w") as archivo:
-    json.dump(objetos_limpios, archivo, indent=4)
+    json.dump(objetos_limpios, archivo, cls=NumpyEncoder, indent=4)

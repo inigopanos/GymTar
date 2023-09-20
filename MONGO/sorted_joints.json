@@ -4,23 +4,7 @@
         "local_orientation_per_joint": []
     },
     {
-        "timestamp": 0,
-        "local_orientation_per_joint": []
-    },
-    {
-        "timestamp": 0,
-        "local_orientation_per_joint": []
-    },
-    {
-        "timestamp": 0,
-        "local_orientation_per_joint": []
-    },
-    {
-        "timestamp": 0,
-        "local_orientation_per_joint": []
-    },
-    {
-        "timestamp": 0,
-        "local_orientation_per_joint": []
-    }
-]
+        "timestamp": [
+            1695217585
+        ],
+        "local_orientation_per_joint": 
