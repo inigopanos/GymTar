@@ -119,7 +119,6 @@ if __name__ == "__main__":
     body_tracking_fusion_params.enable_tracking = True
     body_tracking_fusion_params.enable_body_fitting = False
 
-
     fusion.enable_body_tracking(body_tracking_fusion_params)
 
     camera_info = zed.get_camera_information()
@@ -164,15 +163,18 @@ if __name__ == "__main__":
 
         # Reinicia el contador después de 45 segundos (30s de ejecución + 15s de pausa)
         if tiempo_transcurrido >= tiempo_ejecucion_ejercicio + tiempo_pausa:
-            tiempo_inicial = time.time()
-            contador = 0
+            viewer.exit()
+
+            #  Para reiniciar el contador
+            # tiempo_inicial = time.time()
+            # contador = 0
 
         contador += 1
         time.sleep(1)
 
-        # Sale del bucle si han pasado 15 segundos
-        if tiempo_transcurrido >= 15:
-            viewer.exit()
+        # # Sale del bucle si han pasado 15 segundos, no se cumple porque arriba se reinicia
+        # if tiempo_transcurrido >= 15 and viewer:
+        #     viewer.exit()
 
     for sender in senders:
         senders[sender].close()

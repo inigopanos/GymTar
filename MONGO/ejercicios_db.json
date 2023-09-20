@@ -1,0 +1,6 @@
+{
+  "name": "sentadilla",
+  "duration": 30,
+  "working": true,
+  "important_joints": ["left_leg", "hip"]
+}

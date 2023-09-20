@@ -2,6 +2,8 @@ import numpy as np
 import json
 import time
 
+ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\souleve_de_terre.json'
+
 tiempo_inicial = time.time()
 print('Tiempo inicial: ', tiempo_inicial)
 
@@ -10,7 +12,6 @@ def addIntoOutput(out, identifier, tab):
     for element in tab:
         out[identifier].append(element)
     return out
-
 
 def serializeBodyData(body_data):
     """Serialize BodyData into a JSON like structure"""
@@ -28,9 +29,7 @@ def serializeBodyData(body_data):
     out["local_position_per_joint"] = body_data.local_position_per_joint
     out["local_orientation_per_joint"] = body_data.local_orientation_per_joint
 
-
     return out
-
 
 def serializeBodies(bodies):
     """Serialize Bodies objects into a JSON like structure"""
@@ -50,31 +49,29 @@ def serializeBodies(bodies):
 
     return out
 
-
 class NumpyEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
             return obj.tolist()
         return json.JSONEncoder.default(self, obj)
 
-
 skeleton_file_data = {}
-
 
 def saveData(bodies):
     # Save data into JSON file:
 
-    ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
+    # ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
+    # ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\souleve_de_terre.json'
     with open(ruta_json, 'w') as file_sk:
         skeleton_file_data[str(bodies.timestamp.get_seconds())] = serializeBodies(bodies)
         # print('SkeletonFile: ', skeleton_file_data)
+
+
+
+
 
         file_sk = open(ruta_json, 'w')
 
         file_sk.write(json.dumps(skeleton_file_data, cls=NumpyEncoder, indent=4))
 
         file_sk.close()
-
-
-
-
