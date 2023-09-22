@@ -9,8 +9,8 @@ from scipy.spatial.transform import Rotation
 # ruta_json = 'D:\\GymTar\\GymTar\\bodies.json' # CASA
 
 # Ruta del nuevo archivo JSON donde se guardarán los datos limpios
-# ruta_archivo_limpio = "D:\\GymTar\\GymTar\\MONGO\\sorted_joints.json" # CASA
-ruta_archivo_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\sorted_joints.json" # UNI
+# ruta_archivo_limpio = "D:\\GymTar\\GymTar\\MONGO\\sorted_joints_pesoMuerto1.json" # CASA
+ruta_archivo_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\json\\sorted_joints_pesoMuerto1.json" # UNI
 
 
 ruta_json_original = json_export.ruta_json
