@@ -73,7 +73,7 @@ for orientation_data, value in datos_originales.items():
         print('Rotación Euler:', rot_euler)
 
         # Convertir el objeto NumPy a una cadena JSON
-        json_string = json.dumps(rot_euler, default=np.asarray)
+        json_string = json.dumps(rot_euler, default=np.asarray) # Referencia circular
 
         local_orientation_per_joint_limpio = rot_euler.tolist()
 
