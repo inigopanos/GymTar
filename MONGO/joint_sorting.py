@@ -44,10 +44,17 @@ for orientation_data, value in datos_originales.items():
     body_list_original = []
     nombre_ejercicio = ''
 
+    objeto_timestamp = {
+        "timestamp": [],
+        "joint_rotations": {}
+    }
 
     if body_list:
         body_list_original = body_list.copy()
         timestamp_original = value.get("timestamp", 0)
+        objeto_timestamp.update({
+            "timestamp": timestamp_original
+        })
         # print('Body local: ', body_list_original, type(body_list_original))
 
     if body_list_original:
@@ -58,39 +65,29 @@ for orientation_data, value in datos_originales.items():
 
     if len(local_orientation_per_joint_original) >= max(indices_deseados) + 1:
         # Añadir etiqueta de nombre de ejercicio
-
+        # nombre_ejercicio = datosPasadosPorThomas.nombre_ejercicio
         # Seleccionar solo los elementos deseados según los índices
         local_orientation_per_joint_limpio = [local_orientation_per_joint_original[i] for i in indices_deseados]
+        print('Local orientation per joint limpio: ', local_orientation_per_joint_limpio)
     else:
         # Si no hay suficientes elementos, deja la lista vacía
         local_orientation_per_joint_limpio = []
-    # Seleccionar solo los elementos deseados según los índices
+
+    rot_euler = []
+    list_rot_euler = []
 
     for joint in local_orientation_per_joint_limpio:
         # Cambiar los objetos de quaterniones a Euler
         rot = Rotation.from_quat(joint)
         rot_euler = rot.as_euler('xyz', degrees=True)
+        list_rot_euler.append(rot_euler)
         print('Rotación Euler:', rot_euler)
+        objeto_timestamp.update({
+            "joint_rotations": [list_rot_euler],
+        })
 
-        # Convertir el objeto NumPy a una cadena JSON
-        json_string = json.dumps(rot_euler, default=np.asarray) # Referencia circular
 
-        local_orientation_per_joint_limpio = rot_euler.tolist()
-
-        # Crear un nuevo objeto con los elementos limpios, timestamp y orientación local
-        objeto_limpio = {
-            "timestamp": timestamp_original,
-            "local_orientation_per_joint": local_orientation_per_joint_limpio
-        }
-
-        objetos_limpios.append(objeto_limpio)
-
-    # # Crear un nuevo objeto con los elementos limpios, timestamp y orientación local
-    # objeto_limpio = {
-    #     "timestamp": timestamp_original,
-    #     "local_orientation_per_joint": local_orientation_per_joint_limpio
-    # }
-    # Agregar el nuevo objeto a la lista de objetos limpios
+    objetos_limpios.append(objeto_timestamp)
 
 # Guardar la lista de objetos limpios en un nuevo archivo JSON
 with open(ruta_archivo_limpio, "w") as archivo:
