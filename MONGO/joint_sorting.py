@@ -34,7 +34,8 @@ class NumpyEncoder(json.JSONEncoder):
 with open(ruta_json_original, "r") as archivo:
     datos_originales = json.load(archivo)
 
-# Recorrer los objetos en el archivo original
+# Recorrer los objetos en el archivo original. Por cada objeto se añade el timestamps y las
+# orientaciones en Euler.
 for orientation_data, value in datos_originales.items():
 
     body_list = value.get("body_list", [])
