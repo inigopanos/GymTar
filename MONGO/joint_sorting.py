@@ -18,7 +18,8 @@ ruta_json_original = json_export.ruta_json
 objetos_limpios = []
 
 # Índices de los elementos que deseas conservar en local_orientation_per_joint
-indices_deseados = [1, 3, 5, 6, 12, 13, 18, 19, 22, 23]
+indices_deseados = [1, 3]
+# indices_deseados = [1, 3, 5, 6, 12, 13, 18, 19, 22, 23]
 
 
 # Crear un objeto JSONEncoder personalizado
@@ -86,7 +87,6 @@ for orientation_data, value in datos_originales.items():
         objeto_timestamp.update({
             "joint_rotations": [list_rot_euler],
         })
-
 
     objetos_limpios.append(objeto_timestamp)
 

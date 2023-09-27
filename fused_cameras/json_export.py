@@ -38,14 +38,11 @@ def serializeBodies(bodies):
     out = {}
     out["is_new"] = bodies.is_new
     out["is_tracked"] = bodies.is_tracked
-    out["timestamp"] = [bodies.timestamp.get_seconds()]
+    out["timestamp"] = [bodies.timestamp.get_seconds() - tiempo_inicial]
     out["body_list"] = []
 
     for sk in bodies.body_list:
-        prueba = serializeBodyData(sk)
         out["body_list"].append(serializeBodyData(sk))
-
-        # print('Body data serializado: ', prueba)
 
     return out
 
@@ -65,10 +62,6 @@ def saveData(bodies):
     with open(ruta_json, 'w') as file_sk:
         skeleton_file_data[str(bodies.timestamp.get_seconds())] = serializeBodies(bodies)
         # print('SkeletonFile: ', skeleton_file_data)
-
-
-
-
 
         file_sk = open(ruta_json, 'w')
 
