@@ -5,24 +5,15 @@ def compare_files(control_group_file, user_file):
     user_data = json.load(open(user_file))
 
     # Límites de orientación de joints [1, 3] (espalda/abdomen y pecho superior)
-    max_limit = 1
-    min_limit = 0
+    max_joint_3_limit = [-80.0, 12.5, -17.5]
+    min_joint_3_limit = [15, -14.5, 11.30]
 
     difference = {}
 
-    for key in cg_data:
-        if key not in user_data:
-            difference[key] = "No existe en el archivo de usuario"
-        elif cg_data[key] != user_data[key]:
-            difference[key] = "Diferente"
+    for i in range(len(user_data)):
+        if min_joint_3_limit[i] <= cg_data[i] <= max_joint_3_limit[i]:
+            print(f'El valor {user_data[i]} en la posición {i} está dentro de los límites.')
+        else:
+            print(f'El valor {user_data[i]} en la posición {i} está fuera de los límites.')
 
     return difference
-
-if __name__ == "__main__":
-    control_group_file = "rutaarchivo/grupocontrol.json"
-    user_file = "data/file2.json"
-
-    difference = compare_files(control_group_file, user_file)
-
-    for key, value in difference.items():
-        print(f"{key}: {value}")

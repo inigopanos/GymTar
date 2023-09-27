@@ -1,8 +1,8 @@
 import numpy as np
 import json
-import pandas as pd
 from fused_cameras import json_export
 from scipy.spatial.transform import Rotation
+from comprobation import compare_files
 
 # Ruta del archivo JSON original
 # ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json' # UNI
@@ -18,7 +18,7 @@ ruta_json_original = json_export.ruta_json
 objetos_limpios = []
 
 # Índices de los elementos que deseas conservar en local_orientation_per_joint
-indices_deseados = [1, 3]
+indices_deseados = [3]
 # indices_deseados = [1, 3, 5, 6, 12, 13, 18, 19, 22, 23]
 
 
@@ -93,3 +93,7 @@ for orientation_data, value in datos_originales.items():
 # Guardar la lista de objetos limpios en un nuevo archivo JSON
 with open(ruta_archivo_limpio, "w") as archivo:
     json.dump(objetos_limpios, archivo, cls=NumpyEncoder, indent=4)
+
+
+control_group_data = ruta_archivo_limpio
+compare_files()

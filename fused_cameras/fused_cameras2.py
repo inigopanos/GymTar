@@ -154,7 +154,7 @@ if __name__ == "__main__":
 
             if fusion.process() == sl.FUSION_ERROR_CODE.SUCCESS and tiempo_transcurrido >= 1:
                 fusion.retrieve_bodies(bodies, rt)
-                json_export.saveData(bodies)
+                json_export.saveData(bodies, tiempo_transcurrido)
                 # viewer.update_bodies(bodies)
 
         # Verifica si es tiempo de pausa

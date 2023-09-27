@@ -1,11 +1,9 @@
 import numpy as np
 import json
 import time
+# from fused_cameras import fused_cameras2
 
 ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\souleve_de_terre.json'
-
-tiempo_inicial = time.time()
-print('Tiempo inicial: ', tiempo_inicial)
 
 def addIntoOutput(out, identifier, tab):
     out[identifier] = []
@@ -31,14 +29,14 @@ def serializeBodyData(body_data):
 
     return out
 
-def serializeBodies(bodies):
+def serializeBodies(bodies, tiempo_transcurrido):
     """Serialize Bodies objects into a JSON like structure"""
     "Esto escribe el json, lo otro no hace nada"
 
     out = {}
     out["is_new"] = bodies.is_new
     out["is_tracked"] = bodies.is_tracked
-    out["timestamp"] = [bodies.timestamp.get_seconds() - tiempo_inicial]
+    out["timestamp"] = [bodies.timestamp.get_seconds() - tiempo_transcurrido]
     out["body_list"] = []
 
     for sk in bodies.body_list:
