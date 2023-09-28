@@ -3,7 +3,7 @@ import json
 import time
 # from fused_cameras import fused_cameras2
 
-ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\souleve_de_terre.json'
+ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\json\\user_json.json'
 
 def addIntoOutput(out, identifier, tab):
     out[identifier] = []
@@ -52,13 +52,13 @@ class NumpyEncoder(json.JSONEncoder):
 
 skeleton_file_data = {}
 
-def saveData(bodies):
+def saveData(bodies, tiempo_transcurrido):
     # Save data into JSON file:
 
     # ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\bodies.json'
     # ruta_json = 'D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\souleve_de_terre.json'
     with open(ruta_json, 'w') as file_sk:
-        skeleton_file_data[str(bodies.timestamp.get_seconds())] = serializeBodies(bodies)
+        skeleton_file_data[tiempo_transcurrido] = serializeBodies(bodies, tiempo_transcurrido)
         # print('SkeletonFile: ', skeleton_file_data)
 
         file_sk = open(ruta_json, 'w')

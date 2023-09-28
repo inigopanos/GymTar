@@ -10,8 +10,13 @@ from comprobation import compare_files
 
 # Ruta del nuevo archivo JSON donde se guardarán los datos limpios
 # ruta_archivo_limpio = "D:\\GymTar\\GymTar\\MONGO\\sorted_joints_pesoMuerto1.json" # CASA
-ruta_archivo_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\json\\sorted_joints_pesoMuerto1.json" # UNI
 
+archivo_grupo_control = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\souleve_de_terre.json"
+archivo_grupo_control_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\gc_datos_peso_muerto.json"
+
+# Datos del usuario, el archivo con todos los datos y al que sólo van los datos de orientación
+ruta_datos_usuario = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\json\\user_json.json"
+archivo_usuario_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\json\\sorted_joints_pesoMuerto1.json" # UNI
 
 ruta_json_original = json_export.ruta_json
 # Lista para almacenar los objetos limpios
@@ -32,7 +37,7 @@ class NumpyEncoder(json.JSONEncoder):
 
 
 # Cargar el archivo JSON original
-with open(ruta_json_original, "r") as archivo:
+with open(ruta_datos_usuario, "r") as archivo:
     datos_originales = json.load(archivo)
 
 # Recorrer los objetos en el archivo original. Por cada objeto se añade el timestamps y las
@@ -91,9 +96,8 @@ for orientation_data, value in datos_originales.items():
     objetos_limpios.append(objeto_timestamp)
 
 # Guardar la lista de objetos limpios en un nuevo archivo JSON
-with open(ruta_archivo_limpio, "w") as archivo:
+with open(archivo_usuario_limpio, "w") as archivo:
     json.dump(objetos_limpios, archivo, cls=NumpyEncoder, indent=4)
 
 
-control_group_data = ruta_archivo_limpio
-compare_files()
+compare_files(control_group_file= archivo_grupo_control_limpio, user_file=archivo_usuario_limpio)

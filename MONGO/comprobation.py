@@ -11,6 +11,7 @@ def compare_files(control_group_file, user_file):
     difference = {}
 
     for i in range(len(user_data)):
+        joint_rotations = i["joint_rotations"][0][0]
         if min_joint_3_limit[i] <= cg_data[i] <= max_joint_3_limit[i]:
             print(f'El valor {user_data[i]} en la posición {i} está dentro de los límites.')
         else:
