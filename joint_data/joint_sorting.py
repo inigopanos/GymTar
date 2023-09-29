@@ -9,14 +9,14 @@ from comprobation import compare_files
 # ruta_json = 'D:\\GymTar\\GymTar\\bodies.json' # CASA
 
 # Ruta del nuevo archivo JSON donde se guardarán los datos limpios
-# ruta_archivo_limpio = "D:\\GymTar\\GymTar\\MONGO\\sorted_joints_pesoMuerto1.json" # CASA
+# ruta_archivo_limpio = "D:\\GymTar\\GymTar\\joint_data\\sorted_joints_pesoMuerto1.json" # CASA
 
-archivo_grupo_control = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\souleve_de_terre.json"
-archivo_grupo_control_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\GRUPO_CONTROL\\gc_datos_peso_muerto.json"
+archivo_grupo_control = "D:\\CosasInigo\\GymTar-Proyecto\\joint_data\\GRUPO_CONTROL\\souleve_de_terre.json"
+archivo_grupo_control_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\joint_data\\GRUPO_CONTROL\\gc_datos_peso_muerto.json"
 
 # Datos del usuario, el archivo con todos los datos y al que sólo van los datos de orientación
-ruta_datos_usuario = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\json\\user_json.json"
-archivo_usuario_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\MONGO\\json\\sorted_joints_pesoMuerto1.json" # UNI
+ruta_datos_usuario = "D:\\CosasInigo\\GymTar-Proyecto\\joint_data\\json\\user_json.json"
+archivo_usuario_limpio = "D:\\CosasInigo\\GymTar-Proyecto\\joint_data\\json\\sorted_joints_pesoMuerto1.json" # UNI
 
 ruta_json_original = json_export.ruta_json
 # Lista para almacenar los objetos limpios
